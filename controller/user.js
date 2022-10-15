@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       res.status(200).json(user);
     }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 };
 
@@ -82,7 +82,7 @@ const getUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
   }

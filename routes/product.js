@@ -8,8 +8,10 @@ const {
   getAllProducts,
   relatedProducts,
   listCategories,
+  getProducts,
 } = require("../controller/Product");
 router.route("/").post(verifyTokenAndAdmin, createProduct).get(getAllProducts);
+router.route("/all").get(getProducts);
 // tested
 // @condition = working
 router

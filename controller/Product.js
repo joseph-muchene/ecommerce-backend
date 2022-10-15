@@ -4,8 +4,8 @@ const Product = require("../models/product");
 const createProduct = async (req, res) => {
   try {
     const newProduct = new Product(req.body);
-    await newProduct.save();
-    res.status(201).json("product created");
+    const prod = await newProduct.save();
+    res.status(201).json(prod);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -34,11 +34,36 @@ const updateProduct = (req, res) => {
 
 // get all products
 const getAllProducts = async (req, res) => {
+  const { page, size } = req.query;
+
+  let limit = parseInt(size);
+  const data = await Product.find();
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    const products = await Product.find()
+      .skip((page - 1) * size)
+      .limit(limit);
+
+    res.status(200).json({
+      products: products,
+      data,
+    });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.message);
+  }
+};
+
+// get all products
+const getProducts = async (req, res) => {
+
+  try {
+    const products = await Product.find()
+    .limit(10);
+
+    res.status(200).json({
+      products: products,
+    });
+  } catch (err) {
+    res.status(500).json(err.message);
   }
 };
 
@@ -100,5 +125,6 @@ module.exports = {
   getAllProducts,
   deleteProduct,
   readProduct,
+  getProducts,
   relatedProducts,
 };

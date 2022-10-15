@@ -19,31 +19,27 @@ const ReviewSchema = new mongoose.Schema(
 
 const productSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
-      maxlength: 20,
-      minlength: 3,
+      maxlength: 255,
     },
     description: {
       type: String,
       required: true,
-      maxlength: 50,
+      maxlength: 255,
     },
-    size: {
+    photo: {
       type: String,
-      maxlength: 20,
-    },
-    color: {
-      type: String,
-      required: false,
     },
     numReviews: {
       type: String,
     },
     category: {
-      type: ObjectId,
-      ref: "Category",
+      type: String,
+    },
+    brand: {
+      type: String,
     },
     reviews: [ReviewSchema],
     price: { type: Number, required: true },

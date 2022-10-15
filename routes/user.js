@@ -11,7 +11,9 @@ const {
   verifyTokenAndAdmin,
 } = require("../middlewares/verifyToken");
 const { userLogin } = require("../controller/Auth");
-router.route("/").post(createUser).get(verifyTokenAndAdmin, getAllUsers);
+router.route("/").post(createUser);
+
+router.route("/all").get(verifyTokenAndAdmin, getAllUsers);
 router
   .route("/:id")
   .put(verifyToken, updateUser)
